@@ -1,6 +1,6 @@
 #Starter
 
-A front-end project starter.
+A Wordpress starter theme based on my front-end [Starter](https://github.com/marcellegane/starter) project.
 
 ##Features
 
@@ -15,7 +15,7 @@ Install Gulp globally
 
     npm install -g gulp
 
-Then install the required Gulp plugins as specified in `gulpfile.js`
+Then install the required Gulp plugins as specified in `package.json`
 
     npm install
 
