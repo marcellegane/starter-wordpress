@@ -65,7 +65,7 @@ if (isProduction) {
 var paths = {
     css: {
         src: cssSrc,
-        dest: build + '/'
+        dest: build
     },
 
     js: {
