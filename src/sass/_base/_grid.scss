@@ -1,0 +1,25 @@
+//------------------------------------------------------------------------
+//  $Grid
+//------------------------------------------------------------------------
+
+
+.grid {
+    margin-left: em(-$gtr);
+    margin-right: em(-$gtr);
+}
+
+.col {
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    padding: em($gtr);
+}
+
+@for $i from 1 through $cols {
+    %col-#{$i} {
+        width: ((100 / $cols) * $i) * 1%;
+    }
+    .col-#{$i} {
+        @extend %col-#{$i};
+    }
+}

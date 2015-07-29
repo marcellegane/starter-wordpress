@@ -1,0 +1,158 @@
+//------------------------------------------------------------------------
+//  $Type flow
+//------------------------------------------------------------------------
+
+
+@mixin flow {
+    & > * + * {
+        margin-top: 1em;
+    }
+}
+
+
+//------------------------------------------------------------------------
+//  $Media Queries
+//------------------------------------------------------------------------
+
+
+@mixin breakpoint($breakpoint, $type: "min") {
+    @if $type == "min" {
+        @if $ie8 {
+            @if $ie8 >= $breakpoint {
+                @content;
+            }
+        }
+        @else {
+            @media only screen and (min-width: em($breakpoint)) {
+                @content;
+            }
+        }
+    }
+
+    @if $type == "max" {
+        @if $ie8 {
+            @if $ie8 <= $breakpoint {
+                @content;
+            }
+        }
+        @else {
+            @media only screen and (max-width: em($breakpoint - 1)) {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin retina($breakpoint) {
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: em($breakpoint)),
+    only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: em($breakpoint)),
+    only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: em($breakpoint)),
+    only screen and (        min-device-pixel-ratio: 2)      and (min-width: em($breakpoint)),
+    only screen and (                min-resolution: 192dpi) and (min-width: em($breakpoint)),
+    only screen and (                min-resolution: 2dppx)  and (min-width: em($breakpoint)) {
+      @content
+    }
+}
+
+
+//------------------------------------------------------------------------
+//  $Responsive Type
+//------------------------------------------------------------------------
+
+
+@mixin fluidType($min, $max, $vw) {
+  $min-width: $min / ($vw / 100);
+  $max-width: $max / ($vw / 100);
+
+  font-size: em($min);
+
+  // Min required font-size / (number of viewport units/100)
+  @media (min-width: em($min-width)) {
+    font-size: em($max/1.5);
+    font-size: #{$vw}vw;
+  }
+
+   // Max required font-size / (number of viewport units/100)
+  @media (min-width: em($max-width)) {
+    font-size: em($max);
+  }
+}
+
+
+//------------------------------------------------------------------------
+//  $IE7 Inline-Block
+//------------------------------------------------------------------------
+
+
+@mixin inline-block() {
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+}
+
+
+//------------------------------------------------------------------------
+//  $Background-size fallback
+//------------------------------------------------------------------------
+
+
+@mixin backgroundsize() {
+    -ms-behavior: url(/backgroundsize.min.htc);
+}
+
+
+//------------------------------------------------------------------------
+//  $Background Image Mixin
+//------------------------------------------------------------------------
+
+
+@mixin img-bg($filetype, $src, $size:100%) {
+
+    @if $filetype == "svg" {
+        background-image: url(#{$src}.png);
+        .svg & { background-image: url(#{$src}.svg); }
+    }
+
+    @if $filetype == "png" {
+        background-image: url(#{$src}.png);
+
+        @media
+        only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (   min--moz-device-pixel-ratio: 2),
+        only screen and (     -o-min-device-pixel-ratio: 2/1),
+        only screen and (        min-device-pixel-ratio: 2),
+        only screen and (                min-resolution: 192dpi),
+        only screen and (                min-resolution: 2dppx) {
+            background-image: url(#{$src}@2x.png);
+        }
+    }
+
+    @if $filetype == "jpg" {
+        background-image: url(#{$src}.jpg);
+
+        @media
+        only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (   min--moz-device-pixel-ratio: 2),
+        only screen and (     -o-min-device-pixel-ratio: 2/1),
+        only screen and (        min-device-pixel-ratio: 2),
+        only screen and (                min-resolution: 192dpi),
+        only screen and (                min-resolution: 2dppx) {
+            background-image: url(#{$src}@2x.jpg);
+        }
+    }
+
+}
+
+
+//------------------------------------------------------------------------
+//  $Placeholder
+//------------------------------------------------------------------------
+
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}

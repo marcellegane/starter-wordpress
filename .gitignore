@@ -1,0 +1,8 @@
+.DS_Store
+.sass-cache
+*.css
+*.css.map
+node_modules
+style.css
+scripts.js
+header.js
